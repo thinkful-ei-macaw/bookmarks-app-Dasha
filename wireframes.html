@@ -1,0 +1,43 @@
+<!--Extended view-->
+<div class='bookmark'>
+    <h2>My Bookmarks</h2>
+    <ul>
+        <li class='url'>url link</li>
+        <li class='description'>description</li class='description'>
+        <li class='rating'>rating</li>
+    </ul>
+    <button class='delete' type='button'>Delete</button>
+</div>
+
+<!--Add new bookmark form-->
+<form id='js-new-item-form'>
+    <fieldset>
+        <legend>New Bookmark</legend>
+        <div class='col-6'>
+            <label for='js-form-title'>Title</label>
+            <li class='new-item-li'><input type='text' id='js-form-title' name='title' placeholder='title goes here'>
+            </li>
+
+            <label for='js-form-description'>Description</label>
+            <li class='new-item-li'><textarea id='js-form-description' name='description'
+                    placeholder="this is the best site ever!"></textarea>
+        </div>
+        <div class='col-6'>
+            <label for='js-form-url'>URL</label>
+            <li class='new-item-li'><input type='url' id='js-form-url' name='url' placeholder='https://...'></li>
+
+            <label for='js-form-rating' id='rating-label'>Rating: </label>
+            <select id='js-form-rating' name='rating' aria-labelledby='rating-label'>
+                <option value='5' selected>5</option>
+                <option value='4'>4</option>
+                <option value='3'>3</option>
+                <option value='2'>2</option>
+                <option value='1'>1</option>
+            </select>
+        </div>
+        <div class='add-btn-container col-12'>
+            <button type='submit' id='js-add-bookmark' class='add-button'>ADD BOOKMARK</button>
+            <button type='button' id='js-cancel-bookmark'>CANCEL</button>
+        </div>
+    </fieldset>
+</form>

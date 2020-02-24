@@ -17,7 +17,7 @@ const store = {
       description: "dolorum tempore deserunt",
       expanded: false
     }
-    //...
+    //this should be empty
   ],
   adding: false,
   error: null,
@@ -26,30 +26,8 @@ const store = {
 //given by instructor ^^
 
 //expanded bookmark view
-const store = {
-  bookmarks: [
-    {
-      id: "7ddr",
-      title: "Title 11",
-      rating: 5,
-      url: "http://www.title11.com",
-      description: "lorem ipsum dolor",
-      expanded: true
-    }
-    //...
-  ],
-  adding: false,
-  error: null,
-  filter: 0
-};
 
 //add bookmark form
-const store = {
-  bookmarks: [],
-  adding: true,
-  error: null,
-  filter: 0
-};
 
 //form error
 //insert error function
@@ -57,3 +35,6 @@ const store = {
 function setErrorMessage(error) {
   this.errorMessage = error;
 }
+
+//add here from notes
+//const store should be empty
