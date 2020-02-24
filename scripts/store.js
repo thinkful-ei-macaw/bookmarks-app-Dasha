@@ -1,29 +1,30 @@
+'use strict';
 //initial view
 const store = {
-  bookmarks: [
-    {
-      id: "x56w",
-      title: "Title 1",
-      rating: 3,
-      url: "http://www.title1.com",
-      description: "lorem ipsum dolor sit",
-      expanded: false
-    },
-    {
-      id: "6ffw",
-      title: "Title 2",
-      rating: 5,
-      url: "http://www.title2.com",
-      description: "dolorum tempore deserunt",
-      expanded: false
-    }
-    //this should be empty
-  ],
+  bookmarks: [],
+  //this should be empty
   adding: false,
   error: null,
   filter: 0
 };
 //given by instructor ^^
+
+const findById = function (id) {
+  return bookmarks.find(currentBookmark => currentBookmark.id === id);
+};
+
+const addBookmark = function (bookmark) {
+  this.bookmarks.push(bookmark);
+};
+
+function findAndUpdate(id, newData) {
+  const newBookmark = this.bookmarks.find(bookmark => bookmark.id === id);
+  Object.assign(newBookmark, newData);
+}
+const findAndDelete = function (id) {
+  this.bookmarks = this.bookmarks.filter(currentBookmark => currentBookmark.id !== id);
+};
+
 
 //expanded bookmark view
 
@@ -38,3 +39,13 @@ function setErrorMessage(error) {
 
 //add here from notes
 //const store should be empty
+
+export default {
+  store,
+  bookmarks,
+  findById,
+  addBookmark,
+  findAndUpdate,
+  findAndDelete,
+  setErrorMessage
+};

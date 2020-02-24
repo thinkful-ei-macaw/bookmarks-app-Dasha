@@ -1,4 +1,9 @@
+import $ from 'jquery';
+import api from './api';
+import store from './store';
+
 /********** TEMPLATE GENERATION FUNCTIONS **********/
+//i has a confusion
 
 // These functions return HTML
 function generateInitialViewHtml() {
@@ -125,12 +130,14 @@ function generateUpdateBookmarkForm() {
 // This function conditionally replaces the contents of the <main> tag 
 //based on the state of the store
 
+
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 //get all bookmarks from store object
 function handleNewBookmarkClicked() {
   $('#js-new-bookmark').on('click', () => {
+
     Store.setAddingBookmarkStatus(true);
     Store.setUpdatingBookmarkStatus(false);
     render();
