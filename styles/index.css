@@ -45,25 +45,35 @@ form {
   margin-right: auto;
 }
 
+button {
+  background-color: transparent;
+  border: 3px solid #d1d1d1;
+  box-sizing: border-box;
+  color: #555;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  height: 38px;
+  letter-spacing: 0.05rem;
+  line-height: 34px;
+  padding: 0 26px;
+  text-align: center;
+  text-transform: none;
+}
+
+button:hover {
+  color: rgb(46, 45, 45);
+  border-color: #858383;
+  outline: 0;
+}
+
 .new-item-li {
   list-style-type: none;
   text-align: center;
 }
 
-.error-message-container {
-  color: darkred;
-  font-weight: bold;
-  text-align: center;
-}
 
-
-.controls {
-  text-align: left;
-}
-
-.controls button {
-  margin-bottom: 1.5em;
-}
 
 .add-button {
 font-family: 'Odibee Sans', ;
@@ -170,88 +180,12 @@ select {
   
 }
 
-input[type='text'],
-input[type='url'],
-textarea {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 100%;
-}
 
-textarea {
-  min-height: 68px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
 
-input[type='text']:focus,
-input[type='url']:focus,
-textarea:focus,
-select:focus {
-  border: 3px solid #aaa8a8;
-  outline: 0;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-weight: 600;
-}
 
 .filter-control {
   float: right;
+  font-size: 20px;
 }
 
-/***** Style buttons *****/
-button {
-  background-color: transparent;
-  border: 3px solid #d1d1d1;
-  box-sizing: border-box;
-  color: #555;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 600;
-  height: 38px;
-  letter-spacing: 0.05rem;
-  line-height: 34px;
-  padding: 0 26px;
-  text-align: center;
-  text-transform: uppercase;
-}
 
-button:hover {
-  color: rgb(46, 45, 45);
-  border-color: #858383;
-  outline: 0;
-}
-
-/* Mobile "my buttons look fine!" media query */
-@media (max-width: 460px) {
-  #filter-label {
-    float: none;
-    display: inline-block;
-    text-align: center;
-  }
-
-  select {
-    float: none;
-  }
-
-  .filter-control {
-    float: none;
-  }
-
-  .controls {
-    text-align: center;
-  }
-
-  .edit-btn {
-    float: none;
-  }
-
-  .bookmark-button {
-    float: none;
-  }
-}
