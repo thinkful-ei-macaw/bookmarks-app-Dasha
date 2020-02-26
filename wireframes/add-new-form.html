@@ -1,50 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>add new bookmark</title>
     <link rel="stylesheet" href="styles/index.css" />
-    <link href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap" rel="stylesheet">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
     <main>
-        <form id='js-new-item-form'>
-            <fieldset>
-                <legend>New Bookmark</legend>
-                <div class='col-6'>
-                    <label for='js-form-title'>Title</label>
-                    <li class='new-item-li'><input type='text' id='js-form-title' name='title'
-                            placeholder='title goes here'>
-                    </li>
+      <form id="js-new-bookmark-form">
+        <fieldset>
+          <legend>New Bookmark</legend>
+          <div class="col-6">
+            <label for="js-form-title">Title</label>
+            <li class="new-item-li">
+              <input
+                type="text"
+                id="js-form-title"
+                name="title"
+                placeholder="title goes here"
+              />
+            </li>
 
-                    <label for='js-form-description'>Description</label>
-                    <li class='new-item-li'><textarea id='js-form-description' name='description'
-                            placeholder="this is the best site ever!"></textarea>
-                </div>
-                <div class='col-6'>
-                    <label for='js-form-url'>URL</label>
-                    <li class='new-item-li'><input type='url' id='js-form-url' name='url' placeholder='https://...'>
-                    </li>
+            <label for="js-form-description">Description</label>
+            <li class="new-item-li">
+              <textarea
+                id="js-form-description"
+                name="description"
+                placeholder="this is the best site ever!"
+              ></textarea>
+            </li>
+          </div>
 
-                    <label for='js-form-rating' id='rating-label'>Rating: </label>
-                    <select id='js-form-rating' name='rating' aria-labelledby='rating-label'>
-                        <option value='5' selected>5</option>
-                        <option value='4'>4</option>
-                        <option value='3'>3</option>
-                        <option value='2'>2</option>
-                        <option value='1'>1</option>
-                    </select>
-                </div>
-                <div class='add-btn-container col-12'>
-                    <button type='submit' id='js-add-bookmark' class='add-button'>ADD BOOKMARK</button>
-                    <button type='button' id='js-cancel-bookmark'>CANCEL</button>
-                </div>
-            </fieldset>
-        </form>
+          <div class="col-6">
+            <label for="js-form-url">URL</label>
+            <li class="new-item-li">
+              <input
+                type="url"
+                id="js-form-url"
+                name="url"
+                placeholder="https://..."
+              />
+            </li>
+
+            <label for="js-form-rating" id="rating-label">Rating: </label>
+            <select
+              id="js-form-rating"
+              name="rating"
+              aria-labelledby="rating-label"
+            >
+              <option value="5" selected>5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          <div class="add-btn-container col-12">
+            <button type="submit" id="js-add-bookmark" class="add-button">
+              ADD BOOKMARK
+            </button>
+            <button type="button" id="js-cancel-bookmark">CANCEL</button>
+          </div>
+        </fieldset>
+      </form>
     </main>
-</body>
-
+  </body>
 </html>
