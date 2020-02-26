@@ -1,7 +1,14 @@
 "use strict";
 //initial view
 const store = {
-  bookmarks: [{ title: "test", url: "https://www.thinkful.com", rating: 5 }],
+  bookmarks: [
+    {
+      title: "test",
+      url: "https://www.thinkful.com",
+      desc: "blah blah",
+      rating: 5
+    }
+  ],
 
   //this should be empty
   adding: false,

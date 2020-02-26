@@ -31,14 +31,24 @@ function generateInitialViewHtml() {
       <div id='js-form-container' class='form-container'>
       <form>
       <fieldset>
-      <legend>here are all the bookmarks</legend>
-      <h2>Placeholder Title</h2>
-      <div class="description">Description goes here
-      <a href="www.google.com"target="_url"></a>
+      <legend></legend>
+      <h2>${store.bookmarks.title}</h2>
+      <div class="description">${store.bookmarks.desc}
+      <a href="${store.bookmarks.url}"target="_blank">${store.bookmarks.title} - ${store.bookmarks.rating}</a>
+      </div>
       <button id="expand">See More</button>
       <button id="delete">Delete</button>
       </div>
-      <h2>Another Placeholder Title</h2>
+      
+      
+</fieldset>
+</form>
+      </div>
+         
+  `;
+}
+
+/*<h2>Another Placeholder Title</h2>
       <div class="description">Description goes here
       <button id="expand">See More</button>
       <button id="delete">Delete</button>
@@ -48,13 +58,7 @@ function generateInitialViewHtml() {
       <button id="expand">See More</button>
       <button id="delete">Delete</button>
       </div>
-      
-</fieldset>
-</form>
-      </div>
-         
-  `;
-}
+      */
 /*${generateBookmarksString(
           store.bookmarks.bookmarks,
           store.bookmarks.filter
@@ -244,6 +248,7 @@ function render() {
     //console.log("logging");
     $("main").html(generateInitialViewHtml());
   } else {
+    $("main").html(bookmarksList());
   }
   // Filter item list by bookmark ratings:
   //let bookmarks = store.bookmarks.filter(b => b.rating === store.filter);
@@ -350,7 +355,7 @@ function handleSubmitBookmarkClicked() {
     const newBookmarkDesc = $("#js-form-description").val();
     $("#js-form-description").val("");
     const newBookmarkRating = $("#js-form-rating").val();
-    $("#js-form-rating") = $("#js-form-rating").val("");
+    $("#js-form-rating").val("");
     api
       .createBookmark(
         newBookmarkName,
@@ -358,21 +363,17 @@ function handleSubmitBookmarkClicked() {
         newBookmarkDesc,
         newBookmarkRating
       )
-      .then(
-        newBookmarkName,
-        newBookmarkUrl,
-        newBookmarkDesc,
-        newBookmarkRating => {
-          store.addBookmark(
-            newBookmarkName,
-            newBookmarkUrl,
-            newBookmarkDesc,
-            newBookmarkRating
-          );
-          render();
-        }
-      )
+      .then(() => {
+        store.addBookmark(
+          newBookmarkName,
+          newBookmarkUrl,
+          newBookmarkDesc,
+          newBookmarkRating
+        );
+        render();
+      })
       .catch(error => {
+        console.log(store);
         store.setError(error.message);
         renderError();
       });
