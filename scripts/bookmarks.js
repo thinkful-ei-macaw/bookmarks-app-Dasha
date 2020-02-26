@@ -155,7 +155,7 @@ function generateBookmarkElement(bookmark) {
   //here is the bookmarks string
   //if bookmark.expanded=true, then call the 'expanded' function, return
 
-  let bookmark = store.bookmarks.filter(b => b.rating === store.filter);
+  //let bookmark = store.bookmarks.filter(b => b.rating === store.filter);
   if (bookmark.expanded === true) {
     return generateExpandedView();
   } else
@@ -229,7 +229,7 @@ const generateBookmarksString = function(bookmarks) {
 
   return bookmarks.join("");
 };
-/*
+
 const render = function() {
   renderError();
   // Filter item list by bookmark ratings:
@@ -245,14 +245,15 @@ const render = function() {
   // insert that HTML into the DOM
   $(".js-bookmarks-container").html(bookmarksString);
 };
-*/
-const render = function() {
-  if (store.adding === false) {
-    $("main").html(generateInitialViewHtml);
+
+function renderError() {
+  if (store.error) {
+    const el = generateError(store.error);
+    $(".error-container").html(el);
   } else {
-    $("main").html(generateNewBookmarkHtml);
+    $(".error-container").empty();
   }
-};
+}
 /*
 how to filter things: 
 let bookmarks = [{ title: "test", url: "https://www.thinkful.com", rating: 5 }];
