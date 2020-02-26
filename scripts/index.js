@@ -5,11 +5,13 @@ import store from "./store.js";
 console.log(bookmarks);
 
 const main = function() {
-  api.getBookmarks().then(bookmarks => {
-    bookmarks.forEach(bookmark => store.addBookmark(bookmark));
-  });
   bookmarks.bindEventListeners();
-  bookmarks.render();
+
+  api.getBookmarks().then(bookmarkList => {
+    console.log(bookmarkList);
+    bookmarkList.forEach(bookmark => store.addBookmark(bookmark));
+    bookmarks.render();
+  });
 };
-console.log(store);
+
 $(main);

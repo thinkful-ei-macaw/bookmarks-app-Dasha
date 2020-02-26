@@ -2,7 +2,7 @@ import STORE from "./store.js";
 import api from "./api.js";
 const store = STORE.store;
 
-/********** TEMPLATE GENERATION FUNCTIONS **********/
+//template generator functions
 //i has a confusion
 
 // These functions return HTML
@@ -10,33 +10,57 @@ const store = STORE.store;
 function generateInitialViewHtml() {
   return `
   <h1>My Bookmarks</h1>
-       <form id="js-bookmarks-form">
-      <label for="bookmarks-form"></label>
-      <button type="submit" name="bookmarks-form" class="js-bookmarks-form">ADD BOOKMARK</button>
-      <label for="filter-rating"></label>
-          <select
-            class="filter-control"
-            id="js-filter-control"
-            name="filter"
-            aria-label="Filter ratings by minimum rating">
-            <option value="0">All</option>
-            <option value="5">5 stars</option>
-            <option value="4">4+ stars</option>
-            <option value="3">3+ stars</option>
-            <option value="2">2+ stars</option>
-            <option value="2">1+ stars</option>
-          </select>
-          <label for="filter-control" id="filter-label">Filter </label>
-          <ul class="bookmarks-list js-bookmarks-list">
-        ${generateBookmarksString(
+       <section class="row">
+            <div class="controls">
+                <button id="js-new-bookmark">Add New</button>
+
+                <select class="filter-control" id="js-filter-control" name="filter"
+                    aria-label="Filter ratings by minimum rating">
+                    <option value="0">All</option>
+                    <option value="5">5 stars</option>
+                    <option value="4">4+ stars</option>
+                    <option value="3">3+ stars</option>
+                    <option value="2">2+ stars</option>
+                    <option value="2">1+ stars</option>
+                </select>
+                <label for="filter-control" id="filter-label">Filter </label>
+
+            </div>
+        </section>
+        
+      <div id='js-form-container' class='form-container'>
+      <form>
+      <fieldset>
+      <legend>here are all the bookmarks</legend>
+      <h2>Placeholder Title</h2>
+      <div class="description">Description goes here
+      <a href="www.google.com"target="_url"></a>
+      <button id="expand">See More</button>
+      <button id="delete">Delete</button>
+      </div>
+      <h2>Another Placeholder Title</h2>
+      <div class="description">Description goes here
+      <button id="expand">See More</button>
+      <button id="delete">Delete</button>
+      </div>
+      <h2>Yet Another Placeholder Title</h2>
+      <div class="description">Description goes here
+      <button id="expand">See More</button>
+      <button id="delete">Delete</button>
+      </div>
+      
+</fieldset>
+</form>
+      </div>
+         
+  `;
+}
+/*${generateBookmarksString(
           store.bookmarks.bookmarks,
           store.bookmarks.filter
         )}
-      </ul>
-      </form>     
-  `;
-}
-
+        or is it ${generateBookmarkElement()}
+*/
 function generateNewBookmarkHtml() {
   return `
   <section class="row">
@@ -117,21 +141,8 @@ function generateExpandedView() {
   <div class="container">
               <h2>My Bookmarks</h2>
               <form id="js-expanded-view">
-              <li data-id=${bookmark.id}>
-    <div class="space-between padding-element">
-    <p>${bookmark.title}</p>
-    </div>
-    <div class="flex-center">
-        <form action="${bookmark.url}">
-            <input class="visit-site" type="submit" value="Visit Site"/>
-        </form>        
-    </div>
-    <div class="padding-element">
-        <p>
-            ${bookmark.description}
-        </p>
-    </div> 
-    </li>`;
+              <li><a href="${bookmark.url}"target="_blank">${bookmark.title} - ${bookmark.rating}</a></li>
+              `;
 }
 
 function generateErrorForm() {
@@ -150,27 +161,25 @@ function generateErrorForm() {
   </section>
   ;`;
 }
-
+//how do i add user imports into here
+//this would need to go into the bottom of the initial view, user generated bookmarks but how??? helpe
 function generateBookmarkElement(bookmark) {
   //here is the bookmarks string
+  let bookmarkTitle = `<span class="#js-new-bookmark-form Title">${bookmark.name}</span>`;
   //if bookmark.expanded=true, then call the 'expanded' function, return
-
-  //let bookmark = store.bookmarks.filter(b => b.rating === store.filter);
+  //let bookmarkRating = store.bookmarks.filter(b => b.rating === store.filter);
   if (bookmark.expanded === true) {
     return generateExpandedView();
   } else
     return `
-  <div class="home-container"
-  
-        <li class='bookmark-li' data-item-id="${bookmark.id}">
-    <h2>${bookmark.title}</h2>
-        <li><a href="${bookmark.url}">Visit Site</a> 
-        <button class="bookmarks">${bookmark.title} ${bookmark.rating}/5</button>
-        target="_blank">${bookmark.title} - ${bookmark.rating}</a></li>
-    <button id='delete' type='button'>Delete</button>
-    <button id='expand' type='button'>See More</button>
-</li>
-</div>
+    <li class="home-container" data-bookmark-id="${item.id}">
+  ${bookmarkTitle}
+              <div class="shopping-item-controls">
+              <li class="js-bookmark-element" data-item-id="${item.id}">
+      
+ 
+        
+    
 `;
 }
 //check if bookmark.expanded=true
@@ -216,7 +225,7 @@ function generateUpdateBookmarkForm() {
       `;
 }
 
-/********** RENDER FUNCTION(S) **********/
+//render functions
 
 // This function conditionally replaces the contents of the <main> tag
 //based on the state of the store
@@ -230,10 +239,15 @@ const generateBookmarksString = function(bookmarks) {
   return bookmarks.join("");
 };
 
-const render = function() {
-  renderError();
+function render() {
+  if (store.adding === false) {
+    //console.log("logging");
+    $("main").html(generateInitialViewHtml());
+  } else {
+  }
   // Filter item list by bookmark ratings:
   //let bookmarks = store.bookmarks.filter(b => b.rating === store.filter);
+  /*
   let bookmarks = [...store.bookmarks];
   if (store.bookmarks.filter) {
     bookmarks = bookmarks.filter(b => b.rating === store.filter);
@@ -243,13 +257,14 @@ const render = function() {
   const bookmarksString = generateBookmarksString(bookmarks);
 
   // insert that HTML into the DOM
-  $(".js-bookmarks-container").html(bookmarksString);
-};
+  $(".js-new-bookmark").html(bookmarksString);
+  */
+}
 
 function renderError() {
   if (store.error) {
     const el = generateError(store.error);
-    $(".error-container").html(el);
+    $(".error-container").html(generateErrorForm);
   } else {
     $(".error-container").empty();
   }
@@ -264,8 +279,8 @@ console.log(filteredBookmarks);*/
 
 const getBookmarkIdFromElement = function(bookmark) {
   return $(bookmark)
-    .closest(".bookmark-li")
-    .data("item-id");
+    .closest(".home-container")
+    .data("bookmark-id");
 };
 /*const generateError = function(message) {
   return `
@@ -275,20 +290,18 @@ const getBookmarkIdFromElement = function(bookmark) {
       </section>
   `;
 };
+*/
 
-
-
-/********** EVENT HANDLER FUNCTIONS **********/
+//event handlerssss
 
 // These functions handle events (submit, click, etc)
 //get all bookmarks from store object
 function handleNewBookmarkClicked() {
-  $("#js-new-bookmark").on("click", () => {
+  $("main").on("click", "#js-new-bookmark", event => {
+    event.preventDefault();
     console.log("newbutton");
 
     $("main").html(generateNewBookmarkHtml);
-    $(".bookmark-container").hide();
-    render();
   });
 }
 /*
@@ -305,7 +318,7 @@ function handleSeeMoreClicked() {
 */
 
 //go back from expand view to initial view
-//if expand=true, show expand.html
+//if expand=true, show expandHtml
 
 function handleDeleteBookmarkClicked() {
   $("main").on("click", ".delete", event => {
@@ -327,66 +340,53 @@ function handleDeleteBookmarkClicked() {
 // Handler for submit button
 
 function handleSubmitBookmarkClicked() {
-  $("#js-new-bookmark").on("click", "#js-add-bookmark", event => {
-    console.log("helllooooo");
+  $("main").on("submit", "#js-new-bookmark-form", event => {
     event.preventDefault();
-    const newBookmarkTitle = $(".bookmark-title-entry").val();
-    const newBookmarkUrl = $(".js-bookmarks-url-entry").val();
-    const newBookmarkRating = $("#choose-rating").val();
-    const newBookmarkDescription = $(".enter-description").val();
-    store.bookmarks.adding = false;
+    console.log("helllooooo");
+    const newBookmarkName = $("#js-form-title").val();
+    $("#js-form-title").val("");
+    const newBookmarkUrl = $("#js-form-url").val();
+    $("js-form-url").val("");
     api
-      .createBookmark(
-        newBookmarkTitle,
-        newBookmarkUrl,
-        newBookmarkDescription,
-        newBookmarkRating
-      )
-      .then(newBookmark => {
-        store.addBookmark(newBookmark);
+      .createBookmark(newBookmarkName, newBookmarkUrl)
+      .then(newBookmarkName, newBookmarkUrl => {
+        store.addBookmark(newBookmarkName, newBookmarkUrl);
         render();
       })
       .catch(error => {
         store.setError(error.message);
         renderError();
       });
-    $("#js-new-bookmark")[0].reset();
   });
 }
+
 //replace below with if store.expanded=false, return initialviewHtml
-/*
+
 function handleCancelButton() {
   $("main").on("click", "#js-cancel-bookmark", event => {
     event.preventDefault();
     console.log("cancel button");
 
-    $("generateNewBookmarkHtml").hide();
+    //$("generateNewBookmarkHtml").hide();
     $("main").html(generateInitialViewHtml);
   });
 }
-*/
+
 //generate rating handler
 function handleFilterRatingsDropdown() {}
 
-/******* Main App Start ******/
-function handleBookmarkList() {
-  render();
-  //call event listeners here
-}
-
-/***** Event listener handlers *****/
 // Handle binding all event listeners
 function bindEventListeners() {
   handleNewBookmarkClicked();
   handleSubmitBookmarkClicked();
   handleDeleteBookmarkClicked();
   handleFilterRatingsDropdown();
+  handleCancelButton();
   //handleToggleExpandedBookmarkView();
   //handleEditBookmarkClicked();
 }
 
 export default {
   render,
-  handleBookmarkList,
   bindEventListeners
 };

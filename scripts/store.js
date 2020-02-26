@@ -1,23 +1,7 @@
 "use strict";
 //initial view
 const store = {
-  bookmarks: [
-    { title: "test", url: "https://www.thinkful.com", rating: 5 },
-    {
-      title: "Title 1",
-      rating: 3,
-      url: "http://www.title1.com",
-      description: "lorem ipsum dolor sit",
-      expanded: false
-    },
-    {
-      title: "Title 2",
-      rating: 5,
-      url: "http://www.title2.com",
-      description: "dolorum tempore deserunt",
-      expanded: false
-    }
-  ],
+  bookmarks: [{ title: "test", url: "https://www.thinkful.com", rating: 5 }],
 
   //this should be empty
   adding: false,
@@ -31,10 +15,26 @@ const findById = function(id) {
 };
 
 const addBookmark = function(bookmark) {
-  console.log(this.bookmarks);
-  this.bookmarks.push(bookmark);
+  //console.log(this.bookmarks);
+  this.store.bookmarks.push(bookmark);
 };
-//bookmark.expanded=false;
+
+function filterBookmarksByRating(rating) {
+  setRatingFilter(rating);
+  this.bookmarks = filterStoreBookmarksArray();
+}
+
+function toggleBookmarkExpanded(bookmarkID) {
+  const bookmarkToToggle = this.bookmarks.find(
+    bookmark => bookmark.id === bookmarkID
+  );
+  bookmarkToToggle.expanded = !bookmarkToToggle.expanded;
+  //bookmark.expanded=false;
+}
+
+function setAddingBookmarkStatus(bool) {
+  this.addingBookmark = bool;
+}
 
 function setError(error) {
   this.error = error;
@@ -43,9 +43,10 @@ function setError(error) {
 function findAndUpdate(id, newData) {
   const newBookmark = this.bookmarks.find(bookmark => bookmark.id === id);
   Object.assign(newBookmark, newData);
+  //findAndUpdate(id, { expanded: true })
+  //expanded: false to go back
 }
-//findAndUpdate(id, { expanded: true })
-//expanded: false to go back
+
 const findAndDelete = function(id) {
   this.bookmarks = this.bookmarks.filter(
     currentBookmark => currentBookmark.id !== id
@@ -73,5 +74,8 @@ export default {
   findAndUpdate,
   findAndDelete,
   setErrorMessage,
-  setError
+  setError,
+  filterBookmarksByRating,
+  setAddingBookmarkStatus,
+  toggleBookmarkExpanded
 };

@@ -1,70 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmarks App</title>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookmarks App</title>
-  <link rel="stylesheet" href="styles/index.css" />
-  <link href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap" rel="stylesheet">
+  <body>
+    <main>
+      <!--<h1>My Bookmarks</h1>
+      <section class="row">
+        <div class="controls">
+          <button id="js-new-bookmark">Add New</button>
 
-</head>
-
-<body>
-  <main>
-    <h1>My Bookmarks</h1>
-    <section class="row">
-      <div class="controls">
-        <button id="js-new-bookmark">Add New</button>
-
-        <select class="filter-control" id="js-filter-control" name="filter"
-          aria-label="Filter ratings by minimum rating">
-          <option value="0">All</option>
-          <option value="5">5 stars</option>
-          <option value="4">4+ stars</option>
-          <option value="3">3+ stars</option>
-          <option value="2">2+ stars</option>
-          <option value="2">1+ stars</option>
-        </select>
-        <label for="filter-control" id="filter-label">Filter </label>
-
-      </div>
-    </section>
-
-    <!--<form id="contactForm" action="#">
-        <div>
-          <label for="firstname">First Name</label>
-          <input type="text" id="firstname" name="firstname" placeholder="Enter first name" required>
+          <select
+            class="filter-control"
+            id="js-filter-control"
+            name="filter"
+            aria-label="Filter ratings by minimum rating"
+          >
+            <option value="0">All</option>
+            <option value="5">5 stars</option>
+            <option value="4">4+ stars</option>
+            <option value="3">3+ stars</option>
+            <option value="2">2+ stars</option>
+            <option value="2">1+ stars</option>
+          </select>
+          <label for="filter-control" id="filter-label">Filter </label>
         </div>
-        <div>
-          <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" name="lastname" placeholder="Enter last name" required>
+      </section>
+
+      <section class="row">
+        <div id="js-form-container" class="form-container"></div>
+      </section>
+
+      <section class="row error-message-container">
+        <span id="js-error-message"> </span>
+      </section>
+
+      <section class="row">
+        <div class="bookmark-container">
+          <ul class="js-bookmarks-container"></ul>
         </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Enter email" required>
-        </div>
-        <div>
-          <input type="submit" name="submit" id="submit" value="Submit Form">
-      </form>-->
-    <section class="row">
-      <div id="js-form-container" class="form-container"></div>
-    </section>
+      </section>-->
+    </main>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+    ></script>
 
-    <section class="row error-message-container">
-      <span id="js-error-message"> </span>
-    </section>
-
-    <section class="row">
-      <div class="bookmark-container">
-        <ul class="js-bookmarks-container"></ul>
-      </div>
-    </section>
-  </main>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-
-  <script type="module" src="scripts/index.js"></script>
-</body>
-
+    <script type="module" src="scripts/index.js"></script>
+  </body>
 </html>
