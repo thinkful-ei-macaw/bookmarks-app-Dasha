@@ -346,13 +346,32 @@ function handleSubmitBookmarkClicked() {
     const newBookmarkName = $("#js-form-title").val();
     $("#js-form-title").val("");
     const newBookmarkUrl = $("#js-form-url").val();
-    $("js-form-url").val("");
+    $("#js-form-url").val("");
+    const newBookmarkDesc = $("#js-form-description").val();
+    $("#js-form-description").val("");
+    const newBookmarkRating = $("#js-form-rating").val();
+    $("#js-form-rating") = $("#js-form-rating").val("");
     api
-      .createBookmark(newBookmarkName, newBookmarkUrl)
-      .then(newBookmarkName, newBookmarkUrl => {
-        store.addBookmark(newBookmarkName, newBookmarkUrl);
-        render();
-      })
+      .createBookmark(
+        newBookmarkName,
+        newBookmarkUrl,
+        newBookmarkDesc,
+        newBookmarkRating
+      )
+      .then(
+        newBookmarkName,
+        newBookmarkUrl,
+        newBookmarkDesc,
+        newBookmarkRating => {
+          store.addBookmark(
+            newBookmarkName,
+            newBookmarkUrl,
+            newBookmarkDesc,
+            newBookmarkRating
+          );
+          render();
+        }
+      )
       .catch(error => {
         store.setError(error.message);
         renderError();
