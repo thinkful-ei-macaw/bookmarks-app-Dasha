@@ -32,7 +32,7 @@ function generateInitialViewHtml() {
       <form>
       <fieldset>
       <legend></legend>
-      <h2>${store.bookmarks.title}</h2>
+      <h2>${STORE.store.bookmarks.title}</h2>
       <div class="description">${store.bookmarks.desc}
       <a href="${store.bookmarks.url}"target="_blank">${store.bookmarks.title} - ${store.bookmarks.rating}</a>
       </div>

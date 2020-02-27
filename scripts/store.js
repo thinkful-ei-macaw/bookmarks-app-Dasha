@@ -23,6 +23,7 @@ const findById = function(id) {
 
 const addBookmark = function(bookmark) {
   //console.log(this.bookmarks);
+  //param addNewBookmark??
   this.store.bookmarks.push(bookmark);
 };
 
