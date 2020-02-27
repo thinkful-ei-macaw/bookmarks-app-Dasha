@@ -31,14 +31,27 @@ function generateInitialViewHtml() {
       <div id='js-form-container' class='form-container'>
       <form>
       <fieldset>
-      <legend></legend>
-      <h2>${store.bookmarks[0]}</h2>
-      <div class="description">${store.bookmarks.desc}
-      <a href="${store.bookmarks.url}"target="_blank">${store.bookmarks.title} - ${store.bookmarks.rating}</a>
+    
+      <h2>${store.bookmarks[0].title}</h2>
+      <div class="description">${store.bookmarks[0].desc}
+      <a href="${store.bookmarks[0].url}"target="_blank">${store.bookmarks[0].title} -- ${store.bookmarks[0].rating}</a>
       </div>
       <button id="expand">See More</button>
       <button id="delete">Delete</button>
+     
+      <h2>${store.bookmarks[1].title}</h2>
+      <div class="description">${store.bookmarks[1].desc}
+      <a href="${store.bookmarks[1].url}"target="_blank">${store.bookmarks[1].title} -- ${store.bookmarks[1].rating}</a>
       </div>
+      <button id="expand">See More</button>
+      <button id="delete">Delete</button>
+      
+      <h2>${store.bookmarks[2].title}</h2>
+      <div class="description">${store.bookmarks[2].desc}
+      <a href="${store.bookmarks[2].url}"target="_blank">${store.bookmarks[2].title} -- ${store.bookmarks[2].rating}</a>
+      </div>
+      <button id="expand">See More</button>
+      <button id="delete">Delete</button>
       
       
 </fieldset>
@@ -48,17 +61,6 @@ function generateInitialViewHtml() {
   `;
 }
 
-/*<h2>Another Placeholder Title</h2>
-      <div class="description">Description goes here
-      <button id="expand">See More</button>
-      <button id="delete">Delete</button>
-      </div>
-      <h2>Yet Another Placeholder Title</h2>
-      <div class="description">Description goes here
-      <button id="expand">See More</button>
-      <button id="delete">Delete</button>
-      </div>
-      */
 /*${generateBookmarksString(
           store.bookmarks.bookmarks,
           store.bookmarks.filter
@@ -143,9 +145,10 @@ function generateExpandedView() {
   //or handle on click 'view' .show() this function
   return `
   <div class="container">
-              <h2>My Bookmarks</h2>
+              <h3>${store.bookmarks[0].title}</h3>
               <form id="js-expanded-view">
-              <li><a href="${bookmark.url}"target="_blank">${bookmark.title} - ${bookmark.rating}</a></li>
+                            
+              <p>${store.bookmarks[0].desc}some text</p>
               `;
 }
 
@@ -248,8 +251,11 @@ function render() {
     //console.log("logging");
     $("main").html(generateInitialViewHtml());
   } else {
-    $("main").html(bookmarksList());
+    $("main").html(generateBookmarksString());
   }
+  //let
+  //adding item === true then render addnewHtml, THEN
+  //else render store + new item!!
   // Filter item list by bookmark ratings:
   //let bookmarks = store.bookmarks.filter(b => b.rating === store.filter);
   /*
@@ -306,37 +312,38 @@ function handleNewBookmarkClicked() {
     event.preventDefault();
     console.log("newbutton");
 
-    $("main").html(generateNewBookmarkHtml);
+    $("main").html(generateNewBookmarkHtml());
   });
 }
-/*
+
 //handler for expand view
 //findandUpdate to change to true
 function handleSeeMoreClicked() {
   $("main").on("click", "#expand", event => {
+    console.log("expand you monster!");
     event.preventDefault();
     // Sets expanded status on the target by ID
-    $("main").html(generateExpandedView);
+    $("main").html(generateExpandedView());
     render();
   });
 }
-*/
 
 //go back from expand view to initial view
 //if expand=true, show expandHtml
 
 function handleDeleteBookmarkClicked() {
-  $("main").on("click", ".delete", event => {
+  $("main").on("click", "#delete", event => {
+    console.log("can you delete bruh?");
     event.preventDefault();
     const id = getBookmarkIdFromElement(event.currentTarget);
     api
       .deleteBookmark(id)
       .then(() => {
-        store.findAndDelete(id);
+        STORE.findAndDelete(id);
         render();
       })
       .catch(err => {
-        store.setError(err.message);
+        STORE.setError(err.message);
         renderError();
       });
   });
@@ -364,7 +371,7 @@ function handleSubmitBookmarkClicked() {
         newBookmarkRating
       )
       .then(() => {
-        store.addBookmark(
+        STORE.addBookmark(
           newBookmarkName,
           newBookmarkUrl,
           newBookmarkDesc,
@@ -373,7 +380,7 @@ function handleSubmitBookmarkClicked() {
         render();
       })
       .catch(error => {
-        console.log(store);
+        //console.log(store);
         store.setError(error.message);
         renderError();
       });
@@ -402,6 +409,7 @@ function bindEventListeners() {
   handleDeleteBookmarkClicked();
   handleFilterRatingsDropdown();
   handleCancelButton();
+  handleSeeMoreClicked();
   //handleToggleExpandedBookmarkView();
   //handleEditBookmarkClicked();
 }

@@ -3,10 +3,22 @@
 const store = {
   bookmarks: [
     {
-      title: "test",
+      title: "Thinkful",
       url: "https://www.thinkful.com",
-      desc: "blah blah",
+      desc: "coding bootcamp",
       rating: 5
+    },
+    {
+      title: "Instagram",
+      url: "https://wwww.instagram.com",
+      desc: "ouroboros of desperation",
+      rating: 1
+    },
+    {
+      title: "Google",
+      url: "https://wwww.google.com",
+      desc: "find any website here",
+      rating: 3
     }
   ],
 
