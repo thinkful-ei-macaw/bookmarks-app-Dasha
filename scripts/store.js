@@ -1,24 +1,26 @@
 "use strict";
-//initial view
 const store = {
   bookmarks: [
     {
       title: "Thinkful",
       url: "https://www.thinkful.com",
       desc: "coding bootcamp",
-      rating: 5
+      rating: 5,
+      id: "1"
     },
     {
       title: "Instagram",
-      url: "https://wwww.instagram.com",
+      url: "https://www.instagram.com",
       desc: "ouroboros of desperation",
-      rating: 1
+      rating: 1,
+      id: "2"
     },
     {
       title: "Google",
-      url: "https://wwww.google.com",
+      url: "https://www.google.com",
       desc: "find any website here",
-      rating: 3
+      rating: 3,
+      id: "3"
     }
   ],
 
@@ -27,29 +29,25 @@ const store = {
   error: null,
   filter: 0
 };
-//given by instructor ^^
 
 const findById = function(id) {
-  return this.bookmarks.find(currentBookmark => currentBookmark.id === id);
+  return store.bookmarks.find(currentBookmark => currentBookmark.id === id);
 };
 
 const addBookmark = function(bookmark) {
-  //console.log(this.bookmarks);
-  //param addNewBookmark??
-  this.store.bookmarks.push(bookmark);
+  store.bookmarks.push(bookmark);
 };
 
 function filterBookmarksByRating(rating) {
   setRatingFilter(rating);
-  this.bookmarks = filterStoreBookmarksArray();
+  store.bookmarks = filterStoreBookmarksArray();
 }
 
 function toggleBookmarkExpanded(bookmarkID) {
-  const bookmarkToToggle = this.bookmarks.find(
+  const bookmarkToToggle = store.bookmarks.find(
     bookmark => bookmark.id === bookmarkID
   );
   bookmarkToToggle.expanded = !bookmarkToToggle.expanded;
-  //bookmark.expanded=false;
 }
 
 function setAddingBookmarkStatus(bool) {
@@ -63,8 +61,6 @@ function setError(error) {
 function findAndUpdate(id, newData) {
   const newBookmark = this.bookmarks.find(bookmark => bookmark.id === id);
   Object.assign(newBookmark, newData);
-  //findAndUpdate(id, { expanded: true })
-  //expanded: false to go back
 }
 
 const findAndDelete = function(id) {
@@ -73,20 +69,9 @@ const findAndDelete = function(id) {
   );
 };
 
-//expanded bookmark view
-//if (bookmark.expanded) return generateBookmarkExpanded(bookmark);
-//add bookmark form html
-
-//form error
-//insert error function
-
 function setErrorMessage(error) {
   this.errorMessage = error;
 }
-
-//add here from notes
-//const store should be empty
-
 export default {
   store,
   findById,

@@ -10,16 +10,36 @@ h1 {
 body {
   font-family: "Open Sans", sans-serif;
   background-color: #f5dce2;
+  background-image: url("/images/628929.jpg");
+
+  background-repeat: no-repeat;
+  background-size: stretch;
+}
+body::after {
+  opacity: 0.5;
 }
 
 ul {
   padding: 0;
+  list-style: none;
+  align-items: center;
 }
 
 li {
   font-size: 50px #1b0e11;
   font-weight: 500px;
   text-align: center;
+}
+
+li.bookmark {
+  border: 1px solid black;
+  padding: 20px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+li.bookmark:hover {
+  background-color: rgba(242, 187, 97, 0.5);
 }
 
 button.js-cancel-bookmark {
@@ -88,24 +108,6 @@ select {
   margin-right: auto;
 }
 
-.header-button {
-  width: 100%;
-  height: 100%;
-}
-
-.header-button:hover {
-  border-color: #b9b9b9;
-  background-color: #b9b9b9;
-}
-
-.bookmark-header {
-  background-color: #d1d1d1;
-  border: 5px dashed #361c22;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-}
-
 .bookmark-item {
   margin-top: 12px;
   list-style-type: none;
@@ -135,7 +137,7 @@ select {
 }
 
 fieldset {
-  border: 5px solid #361c22;
+  border: 5px solid#664F29;
   border-style: dashed;
   margin: 80px;
 }
@@ -190,7 +192,7 @@ label {
 /***** Style buttons *****/
 button {
   background-color: transparent;
-  border: 3px dashed #361c22;
+  border: 3px dashed#664F29;
   box-sizing: border-box;
   color: #555;
   cursor: pointer;
@@ -207,12 +209,11 @@ button {
 
 button:hover {
   color: white;
-  text-emphasis-color: #1b0e11;
+  text-emphasis-color: #664f29;
   border-color: #858383;
   outline: 0;
 }
 
-/* Mobile "my buttons look fine!" media query */
 @media (max-width: 460px) {
   #filter-label {
     float: none;
@@ -238,5 +239,37 @@ button:hover {
 
   .bookmark-button {
     float: none;
+  }
+}
+
+@media (min-width: 700px) {
+  form {
+    align-items: center;
+
+    width: 7in;
+  }
+  ul {
+    text-align: center;
+  }
+  main {
+    padding-left: 200px;
+    padding-right: 200px;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1000px) {
+  form {
+    align-items: center;
+
+    width: 7in;
+  }
+  ul {
+    text-align: center;
+  }
+  main {
+    padding-left: 200px;
+    padding-right: 200px;
+    align-items: center;
   }
 }
