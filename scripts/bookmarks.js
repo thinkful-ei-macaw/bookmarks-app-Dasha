@@ -91,7 +91,7 @@ function generateNewBookmarkHtml() {
 
 const generateError = function(message) {
   return `
-      <section class="error-content">
+      <section class="error-container">
         <button id="cancel-error">X</button>
         <p>${message}</p>
       </section>
@@ -141,8 +141,58 @@ function addNewBookmarkClick() {
 }
 
 //.api goes here but where?? look up dog example
+//i did everything riiight ugh whyyyy
 function submitButtonClick() {
-  $("main").on("click", ".add-bookmark", e => {
+  if (store.adding === false) {
+    renderMain();
+  }
+  if (store.adding === true) {
+    $("main").on("click", ".add-bookmark", e => {
+      e.preventDefault();
+      const newBookmarkName = $("#js-form-title").val();
+      $("#js-form-title").val("");
+      const newBookmarkUrl = $("#js-form-url").val();
+      $("#js-form-url").val("");
+      const newBookmarkDesc = $("#js-form-description").val();
+      $("#js-form-description").val("");
+      const newBookmarkRating = $("#js-form-rating").val();
+      $("#js-form-rating").val("");
+      api
+        .createBookmark(
+          newBookmarkName,
+          newBookmarkUrl,
+          newBookmarkDesc,
+          newBookmarkRating
+        )
+        .then(() => {
+          store.addBookmark(
+            newBookmarkName,
+            newBookmarkUrl,
+            newBookmarkDesc,
+            newBookmarkRating
+          );
+          render();
+        })
+
+        .catch(error => {
+          //console.log(store);
+          store.setError(error.message);
+          renderError();
+        });
+    });
+  }
+}
+
+function renderError() {
+  if (store.error) {
+    const el = generateError(store.error);
+    $(".error-container").html(el);
+  } else {
+    $(".error-container").empty();
+  }
+}
+/*
+
     store.addBookmark({
       title: `Google ${store.store.bookmarks.length}`,
       url: "https://www.google.com",
@@ -153,6 +203,7 @@ function submitButtonClick() {
     render();
   });
 }
+*/
 
 function handleCancelButton() {
   $("main").on("click", "#js-cancel-bookmark", event => {
@@ -164,13 +215,14 @@ function handleCancelButton() {
   });
 }
 
-/*function filterBookmarks() {
-  if store.bookmarks {
-    filteredBookmarks = bookmarks.filter(b => b.rating === 4);}
+function filterBookmarks() {
+  if (store.bookmarks) {
+    filteredBookmarks = bookmarks.filter(b => b.rating === 4);
+  }
 }
-*/
+
 const render = () => {
-  console.log(store.store.bookmarks);
+  //console.log(store.store.bookmarks);
   /*$("main").html("<h1>Rendering....</h1>");
   setTimeout(() => {
     $("main").html(renderMain());
@@ -185,6 +237,7 @@ const bindEventListeners = () => {
   handleCancelButton();
   addNewBookmarkClick();
   generateError();
+  filterBookmarks();
 };
 
 export default {
