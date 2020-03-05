@@ -111,7 +111,9 @@ function renderBookmark(bookmark) {
   if (bookmark.expanded) {
     html += `<p>${bookmark.desc}</p>`;
     html += `<p>Rating: ${bookmark.rating}</p>`;
-    html += `<a class="bookmark-url" href="${bookmark.url}" target="_blank">Click Here</a>`;
+    html += `<button><a class="bookmark-url" href="${bookmark.url}" target="_blank">visit site</a></button>`;
+    html += `<button type="button" id="js-delete-bookmark"> delete bookmark
+        </button> `;
   }
   html += `</li>`;
   return html;
@@ -126,11 +128,30 @@ function expandBookmark() {
 }
 
 function visitBookmark() {
+  console.log("visit");
   $("main").on("click", ".bookmark-url", e => {
     e.stopPropagation();
   });
 }
 
+function deleteBookmark() {
+  console.log("delete");
+  $("main").on("click", "#js-delete-bookmark", e => {
+    e.preventDefault();
+    //remove it from added list
+    const id = $(e.currentTarget).attr("id");
+    store.findAndDelete(id);
+    render();
+  });
+}
+
+/*
+const getBookmarkIdFromElement = function(bookmark) {
+  return $(bookmark)
+    .closest(".bookmark-li")
+    .data("bookmark-id");
+};
+*/
 function addNewBookmarkClick() {
   $("main").on("click", ".add-bookmark", event => {
     event.preventDefault();
@@ -143,12 +164,28 @@ function addNewBookmarkClick() {
 //.api goes here but where?? look up dog example
 //i did everything riiight ugh whyyyy
 function submitButtonClick() {
-  if (store.adding === false) {
-    renderMain();
-  }
-  if (store.adding === true) {
-    $("main").on("click", ".add-bookmark", e => {
-      e.preventDefault();
+  $("#js-new-bookmark-form").on("click", ".add-bookmark", e => {
+    //  e.preventDefault();
+    console.log("add me plz");
+    // $("main").on("click", ".add-bookmark", e => {
+    e.preventDefault();
+    store
+      .addBookmark({
+        title: `${store.store.bookmarks.title}`,
+        url: `${store.store.bookmarks.url}`,
+        desc: `${store.store.bookmarks.desc}`,
+        rating: `${store.store.bookmarks.rating}`,
+        id: `${store.store.bookmarks.id}`
+      })
+      .then(newBookmark => store.addBookmark(newBookmark))
+      .then(() => renderList());
+    render();
+  });
+}
+
+/*  
+      
+      
       const newBookmarkName = $("#js-form-title").val();
       $("#js-form-title").val("");
       const newBookmarkUrl = $("#js-form-url").val();
@@ -171,7 +208,7 @@ function submitButtonClick() {
             newBookmarkDesc,
             newBookmarkRating
           );
-          render();
+          renderList();
         })
 
         .catch(error => {
@@ -182,6 +219,14 @@ function submitButtonClick() {
     });
   }
 }
+      api
+        .createBookmark(newBookmark)
+        .then(newBookmark => store.addBookmark(newBookmark))
+        .then(() => renderMain());
+    });
+  }
+}
+*/
 
 function renderError() {
   if (store.error) {
@@ -191,19 +236,6 @@ function renderError() {
     $(".error-container").empty();
   }
 }
-/*
-
-    store.addBookmark({
-      title: `Google ${store.store.bookmarks.length}`,
-      url: "https://www.google.com",
-      desc: "find any website here",
-      rating: 3,
-      id: `${store.store.bookmarks.length}`
-    });
-    render();
-  });
-}
-*/
 
 function handleCancelButton() {
   $("main").on("click", "#js-cancel-bookmark", event => {
@@ -219,6 +251,7 @@ function filterBookmarks() {
   if (store.bookmarks) {
     filteredBookmarks = bookmarks.filter(b => b.rating === 4);
   }
+  //return filteredBookmarks === 4;
 }
 
 const render = () => {
@@ -238,6 +271,7 @@ const bindEventListeners = () => {
   addNewBookmarkClick();
   generateError();
   filterBookmarks();
+  deleteBookmark();
 };
 
 export default {
