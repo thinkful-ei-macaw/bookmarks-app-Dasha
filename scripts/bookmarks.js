@@ -135,11 +135,15 @@ function visitBookmark() {
 }
 
 function deleteBookmark() {
-  console.log("delete");
   $("main").on("click", "#js-delete-bookmark", e => {
+    console.log("delete");
     e.preventDefault();
+    e.stopPropagation();
     //remove it from added list
-    const id = $(e.currentTarget).attr("id");
+    const id = $(e.currentTarget)
+      .parent()
+      .attr("id");
+    console.log(id);
     store.findAndDelete(id);
     render();
   });
@@ -164,69 +168,21 @@ function addNewBookmarkClick() {
 //.api goes here but where?? look up dog example
 //i did everything riiight ugh whyyyy
 function submitButtonClick() {
-  $("#js-new-bookmark-form").on("click", ".add-bookmark", e => {
-    //  e.preventDefault();
-    console.log("add me plz");
-    // $("main").on("click", ".add-bookmark", e => {
+  $("main").on("submit", "#js-new-bookmark-form", e => {
     e.preventDefault();
-    store
-      .addBookmark({
-        title: `${store.store.bookmarks.title}`,
-        url: `${store.store.bookmarks.url}`,
-        desc: `${store.store.bookmarks.desc}`,
-        rating: `${store.store.bookmarks.rating}`,
-        id: `${store.store.bookmarks.id}`
-      })
-      .then(newBookmark => store.addBookmark(newBookmark))
-      .then(() => renderList());
-    render();
+    console.log("add me plz");
+    const newBookmark = {
+      title: `${e.target.title.value}`,
+      url: `${e.target.url.value}`,
+      desc: `${e.target.description.value}`,
+      rating: `${e.target.rating.value}`
+    };
+    api
+      .createBookmark(newBookmark)
+      .then(bookmark => store.addBookmark(bookmark))
+      .then(() => render());
   });
 }
-
-/*  
-      
-      
-      const newBookmarkName = $("#js-form-title").val();
-      $("#js-form-title").val("");
-      const newBookmarkUrl = $("#js-form-url").val();
-      $("#js-form-url").val("");
-      const newBookmarkDesc = $("#js-form-description").val();
-      $("#js-form-description").val("");
-      const newBookmarkRating = $("#js-form-rating").val();
-      $("#js-form-rating").val("");
-      api
-        .createBookmark(
-          newBookmarkName,
-          newBookmarkUrl,
-          newBookmarkDesc,
-          newBookmarkRating
-        )
-        .then(() => {
-          store.addBookmark(
-            newBookmarkName,
-            newBookmarkUrl,
-            newBookmarkDesc,
-            newBookmarkRating
-          );
-          renderList();
-        })
-
-        .catch(error => {
-          //console.log(store);
-          store.setError(error.message);
-          renderError();
-        });
-    });
-  }
-}
-      api
-        .createBookmark(newBookmark)
-        .then(newBookmark => store.addBookmark(newBookmark))
-        .then(() => renderMain());
-    });
-  }
-}
-*/
 
 function renderError() {
   if (store.error) {

@@ -31,17 +31,11 @@ function getBookmarks() {
   return listApiFetch(`${BASE_URL}/bookmarks`);
 }
 
-function createBookmark(title, url, desc, rating) {
-  const newBookmark = JSON.stringify({
-    title,
-    url,
-    desc,
-    rating
-  });
+function createBookmark(newBookmark) {
   return listApiFetch(`${BASE_URL}/bookmarks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: newBookmark
+    body: JSON.stringify(newBookmark)
   });
 }
 //not sure if I need this??

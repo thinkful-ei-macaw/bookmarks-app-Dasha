@@ -35,7 +35,7 @@ const findById = function(id) {
 };
 
 const addBookmark = function(bookmark) {
-  store.bookmarks.push(bookmark);
+  return store.bookmarks.push(bookmark);
 };
 
 function filterBookmarksByRating(rating) {
@@ -64,9 +64,9 @@ function findAndUpdate(id, newData) {
 }
 
 const findAndDelete = function(id) {
-  this.bookmarks = this.bookmarks.filter(
+  return (store.bookmarks = store.bookmarks.filter(
     currentBookmark => currentBookmark.id !== id
-  );
+  ));
 };
 
 function setErrorMessage(error) {
