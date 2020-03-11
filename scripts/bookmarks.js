@@ -149,13 +149,6 @@ function deleteBookmark() {
   });
 }
 
-/*
-const getBookmarkIdFromElement = function(bookmark) {
-  return $(bookmark)
-    .closest(".bookmark-li")
-    .data("bookmark-id");
-};
-*/
 function addNewBookmarkClick() {
   $("main").on("click", ".add-bookmark", event => {
     event.preventDefault();
@@ -165,8 +158,6 @@ function addNewBookmarkClick() {
   });
 }
 
-//.api goes here but where?? look up dog example
-//i did everything riiight ugh whyyyy
 function submitButtonClick() {
   $("main").on("submit", "#js-new-bookmark-form", e => {
     e.preventDefault();
@@ -203,12 +194,14 @@ function handleCancelButton() {
   });
 }
 
-function filterBookmarks() {
-  if (store.bookmarks) {
-    filteredBookmarks = bookmarks.filter(b => b.rating === 4);
+function filterBookmarksbyRating(rating) {
+  if (store.bookmarks.rating <= 5) {
+    $("main").hide(store.bookmarks.rating < 5);
   }
-  //return filteredBookmarks === 4;
 }
+// return rating === 4
+// if store.bookmarks.rating <=5 .hide(store.bookmarks.rating < 5)
+// render();
 
 const render = () => {
   //console.log(store.store.bookmarks);
@@ -226,8 +219,9 @@ const bindEventListeners = () => {
   handleCancelButton();
   addNewBookmarkClick();
   generateError();
-  filterBookmarks();
+
   deleteBookmark();
+  renderError();
 };
 
 export default {
