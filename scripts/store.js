@@ -23,7 +23,6 @@ const store = {
       id: "3"
     }
   ],
-
   //this should be empty
   adding: false,
   error: null,
@@ -38,9 +37,8 @@ const addBookmark = function(bookmark) {
   return store.bookmarks.push(bookmark);
 };
 
-function filterBookmarksByRating(rating) {
-  setRatingFilter(rating);
-  store.bookmarks = filterStoreBookmarksArray();
+function setFilter(rating) {
+  store.filter = rating;
 }
 
 function toggleBookmarkExpanded(bookmarkID) {
@@ -80,7 +78,7 @@ export default {
   findAndDelete,
   setErrorMessage,
   setError,
-  filterBookmarksByRating,
+  setFilter,
   setAddingBookmarkStatus,
   toggleBookmarkExpanded
 };

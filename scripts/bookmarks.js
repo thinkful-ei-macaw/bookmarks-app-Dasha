@@ -4,9 +4,6 @@ import api from "./api.js";
 function renderMain() {
   return `
     <h1>My Bookmarks</h1>
-    <button class="add-bookmark">Add Bookmark</button>
-    ${renderList()}
-    <button class="add-bookmark">Add Bookmark</button>
     <div>
     <select class="filter-control" id="js-filter-control" name="filter"
                     aria-label="Filter ratings by minimum rating">
@@ -15,10 +12,27 @@ function renderMain() {
                     <option value="4">4+ stars</option>
                     <option value="3">3+ stars</option>
                     <option value="2">2+ stars</option>
-                    <option value="2">1+ stars</option>
+                    <option value="1">1+ stars</option>
                 </select>
                 <label for="filter-control" id="filter-label">Filter </label>
 </div>
+    <button class="add-bookmark">Add Bookmark</button>
+    
+    ${renderList()}
+    <div>
+    <select class="filter-control" id="js-filter-control" name="filter"
+                    aria-label="Filter ratings by minimum rating">
+                    <option value="0">All</option>
+                    <option value="5">5 stars</option>
+                    <option value="4">4+ stars</option>
+                    <option value="3">3+ stars</option>
+                    <option value="2">2+ stars</option>
+                    <option value="1">1+ stars</option>
+                </select>
+                <label for="filter-control" id="filter-label">Filter </label>
+</div>
+    <button class="add-bookmark">Add Bookmark</button>
+    
   `;
 }
 
@@ -100,7 +114,11 @@ const generateError = function(message) {
 
 function renderList() {
   let html = `<ul>`;
-  store.store.bookmarks.forEach(b => (html += renderBookmark(b)));
+  let bookmarks =
+    store.store.filter > 0
+      ? store.store.bookmarks.filter(b => b.rating >= store.store.filter)
+      : store.store.bookmarks;
+  bookmarks.forEach(b => (html += renderBookmark(b)));
   html += `</ul>`;
   return html;
 }
@@ -149,13 +167,6 @@ function deleteBookmark() {
   });
 }
 
-/*
-const getBookmarkIdFromElement = function(bookmark) {
-  return $(bookmark)
-    .closest(".bookmark-li")
-    .data("bookmark-id");
-};
-*/
 function addNewBookmarkClick() {
   $("main").on("click", ".add-bookmark", event => {
     event.preventDefault();
@@ -204,18 +215,14 @@ function handleCancelButton() {
 }
 
 function filterBookmarks() {
-  if (store.bookmarks) {
-    filteredBookmarks = bookmarks.filter(b => b.rating === 4);
-  }
-  //return filteredBookmarks === 4;
+  $("main").on("change", ".filter-control", e => {
+    console.log(e.target.value);
+    store.setFilter(e.target.value);
+    render();
+  });
 }
 
 const render = () => {
-  //console.log(store.store.bookmarks);
-  /*$("main").html("<h1>Rendering....</h1>");
-  setTimeout(() => {
-    $("main").html(renderMain());
-  }, 1000);*/
   $("main").html(renderMain());
 };
 

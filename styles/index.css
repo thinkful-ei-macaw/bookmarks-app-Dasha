@@ -199,6 +199,19 @@ label {
 
 .filter-control {
   float: right;
+  background-color: transparent;
+  border: 3px dashed#664F29;
+  box-sizing: border-box;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  height: 38px;
+  letter-spacing: 0.05rem;
+  line-height: 34px;
+  padding: 0 26px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 /***** Style buttons *****/
@@ -231,7 +244,7 @@ button:hover {
   outline: 0;
 }
 
-@media (max-width: 460px) {
+@media (mins-width: 460px) {
   #filter-label {
     float: none;
     display: inline-block;
@@ -259,7 +272,7 @@ button:hover {
   }
 }
 
-@media (min-width: 700px) {
+/* @media (min-width: 700px) {
   form {
     align-items: center;
 
@@ -274,7 +287,7 @@ button:hover {
     padding-right: 200px;
     align-items: center;
   }
-}
+} */
 
 @media (min-width: 1000px) {
   form {
