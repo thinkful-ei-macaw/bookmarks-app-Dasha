@@ -53,7 +53,7 @@ function setAddingBookmarkStatus(bool) {
 }
 
 function setError(error) {
-  this.error = error;
+  store.error = error;
 }
 
 function findAndUpdate(id, newData) {

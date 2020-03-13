@@ -90,7 +90,7 @@ function generateNewBookmarkHtml() {
           <option value="1">1</option>
         </select>
       </div>
-      <div class="add-btn-container col-12">
+      <div class="add-btn-container">
         <button type="submit" id="js-add-bookmark" class="add-button">
           ADD BOOKMARK
         </button>
@@ -176,8 +176,6 @@ function addNewBookmarkClick() {
   });
 }
 
-//.api goes here but where?? look up dog example
-//i did everything riiight ugh whyyyy
 function submitButtonClick() {
   $("main").on("submit", "#js-new-bookmark-form", e => {
     e.preventDefault();
@@ -221,6 +219,9 @@ function filterBookmarks() {
     render();
   });
 }
+// return rating === 4
+// if store.bookmarks.rating <=5 .hide(store.bookmarks.rating < 5)
+// render();
 
 const render = () => {
   $("main").html(renderMain());
@@ -235,6 +236,7 @@ const bindEventListeners = () => {
   generateError();
   filterBookmarks();
   deleteBookmark();
+  renderError();
 };
 
 export default {
